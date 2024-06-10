@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -17,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/Climas_prueba', {
 // Definir un esquema para los datos del clima
 const weatherSchema = new mongoose.Schema({
   city: String,
+  country: String,  // <-- Agregar este campo
   temperature: Number,
 });
 
@@ -26,13 +25,14 @@ const Weather = mongoose.model('Weather', weatherSchema, 'clima');
 // Endpoint para guardar datos del clima
 app.post('/saveWeatherData', async (req, res) => {
   try {
-    const { city, temperature } = req.body;
+    const { city, country, temperature } = req.body;
     
     console.log('Datos recibidos en el servidor:', req.body); // <-- Agregar esta línea para imprimir el cuerpo de la solicitud
     
     // Crear una nueva instancia del modelo Weather
     const newWeather = new Weather({
       city,
+      country,  // <-- Agregar este campo
       temperature,
     });
 

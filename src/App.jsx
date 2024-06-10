@@ -3,7 +3,7 @@ import { Box, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import './App.css';
 
-// Agrega aquí la importación necesaria para la conexión a MongoDB
+// importacion para la conexion
 
 const API_WEATHER = `http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&lang=es&q=`;
 
@@ -17,6 +17,7 @@ export default function App() {
   const [weather, setWeather] = useState(null);
 
   // Función para guardar en MongoDB
+  
   const saveToDatabase = async () => {
     try {
       if (!weather) {
@@ -30,7 +31,8 @@ export default function App() {
         },
         body: JSON.stringify({
           city: weather.city,
-          temperature: weather.temperature
+          country: weather.country,  // <-- Agregar este campo
+          temperature: weather.temperature,
         }),
       });
   
@@ -43,7 +45,6 @@ export default function App() {
       console.error('Error:', error);
     }
   };
-  
 
   const onSubmit = async (e) => {
     e.preventDefault();
